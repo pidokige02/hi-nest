@@ -11,6 +11,8 @@ import {
 
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
+import { CreateMovieDto } from './dto/create-movie.dto';
+
 
 @Controller('movies') // it's the base url
 export class MoviesController {
@@ -27,7 +29,7 @@ export class MoviesController {
     }
     // get http://localhost:3000/movies/1
     @Get(":id")
-    getOne(@Param("id") movieId:string) : Movie {
+    getOne(@Param("id") movieId:number) : Movie {
         return this.moviesService.getOne(movieId);
     }
     // POST: http://localhost:3000/movies/
@@ -37,12 +39,12 @@ export class MoviesController {
     //     "genres" : ["action", "mind blown"]
     // }
     @Post()
-    create(@Body() movieData) {
+    create(@Body() movieData : CreateMovieDto) {
         return this.moviesService.create(movieData);
     }
 
     @Delete(":id")
-    remove(@Param("id") movieId:string) {
+    remove(@Param("id") movieId:number) {
         return this.moviesService.deleteOne(movieId);
     }
     // http://localhost:3000/movies/1
@@ -50,7 +52,7 @@ export class MoviesController {
     //     "year": 2022,
     // }
     @Patch(':id')
-    patch(@Param('id') movieId: string, @Body() updateData) {
+    patch(@Param('id') movieId: number, @Body() updateData) {
         return this.moviesService.update(movieId, updateData);
     }
 }
